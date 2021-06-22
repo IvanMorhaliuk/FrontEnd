@@ -77,11 +77,21 @@
         container.append(todoForm.form);
         container.append(todoList);
         
-        todoForm.form.addEventListener('submit',function(e){
-            e.preventDefault();
+        todoForm.form.addEventListener('submit',function(event){
+            event.preventDefault();
             if(!todoForm.input.value) return;
 
-            todoList.append(createToDoTask(todoForm.input.value).task);
+            let todoTask = createToDoTask(todoForm.input.value);
+
+            todoTask.doneButton.addEventListener('click',function(event){
+                todoTask.task.classList.toggle('list-group-item-success');
+            });
+            todoTask.deleteButton.addEventListener('click',function(event){
+                if(confirm("Are you sure?")){
+                    todoTask.task.remove();
+                }
+            });
+            todoList.append(todoTask.task);
 
             todoForm.input.value = '';
         });
