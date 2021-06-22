@@ -35,6 +35,34 @@
         return list;
     }
 
+    function createToDoTask(name){
+        let task = document.createElement('li');
+
+        let buttonGroup = document.createElement('div');
+        let doneButton = document.createElement('button');
+        let deleteButton = document.createElement('button');
+        
+        task.classList.add('list-group-item','d-flex','justify-content-between','align-items-center');
+        task.textContent = name;
+
+        buttonGroup.classList.add('btn-group','btn-group-sm');
+        doneButton.classList.add('btn','btn-success');
+        doneButton.textContent = "Done";
+        deleteButton.classList.add('btn','btn-danger');
+        deleteButton.textContent = "Delete";
+
+        buttonGroup.append(doneButton);
+        buttonGroup.append(deleteButton);
+
+        task.append(buttonGroup);
+
+        return {
+            task,
+            doneButton,
+            deleteButton,
+        };
+
+    }
 
     document.addEventListener('DOMContentLoaded',function(){
         let container = document.getElementById('todo-app');
@@ -43,9 +71,21 @@
         let todoForm = createForm();
         let todoList = createToDoList();
 
+        
+
         container.append(todoAppTitle);
         container.append(todoForm.form);
         container.append(todoList);
+        
+        todoForm.form.addEventListener('submit',function(e){
+            e.preventDefault();
+            if(!todoForm.input.value) return;
+
+            todoList.append(createToDoTask(todoForm.input.value).task);
+
+            todoForm.input.value = '';
+        });
+
 
     });
 
