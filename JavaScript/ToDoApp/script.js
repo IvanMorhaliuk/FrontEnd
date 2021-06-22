@@ -77,6 +77,8 @@
         container.append(todoForm.form);
         container.append(todoList);
         
+       
+
         todoForm.form.addEventListener('submit',function(event){
             event.preventDefault();
             if(!todoForm.input.value) return;
@@ -93,6 +95,7 @@
             });
             todoList.append(todoTask.task);
 
+            
             todoForm.input.value = '';
         });
 
